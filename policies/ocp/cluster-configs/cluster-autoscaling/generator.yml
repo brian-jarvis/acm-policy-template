@@ -1,0 +1,29 @@
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: cluster-autoscaler
+policyDefaults:
+  namespace: policies
+  remediationAction: enforce
+  consolidateManifests: false
+  ## turn off the default compliance annotations
+  categories: []
+  controls: []
+  standards: []
+  policySets:
+    - cluster-autoscaling
+placementBindingDefaults:
+  name: "cluster-autoscaling-binding"
+
+policies:
+  - name: cluster-autoscaling
+    manifests:
+      - path: ./clusterautoscaler.yml
+      - path: ./machineautoscaler.yml
+
+
+policySets:
+  - name: cluster-autoscaling
+    placement:
+      placementName: "ft-autoscaling--enabled"

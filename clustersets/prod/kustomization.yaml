@@ -1,0 +1,21 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+## specify the namespace to create the polcies/placements/bindings in
+namespace: policies-prod
+
+transformers:
+  ## set the name of the PolicySets to include a suffix specific to this environment
+  - policyset-suffixer.yml
+
+## Add the local resources to the set
+resources:
+  - managedclusterset.yml
+  - ../../policies/common/acm-placements/ocp
+
+components:
+  - ../../policy-groups/ocp-common
+
+  ## base must be added last to the list of components
+  - ../../base
