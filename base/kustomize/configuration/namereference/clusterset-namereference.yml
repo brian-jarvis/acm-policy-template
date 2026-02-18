@@ -1,0 +1,17 @@
+---
+nameReference:
+- kind: ManagedClusterSet
+  fieldSpecs:
+  - kind: ManagedCluster
+    path: metadata/labels/cluster.open-cluster-management.io\/clusterset
+    create: true
+
+  - kind: Placement
+    path: spec/clusterSets
+    create: true
+
+  - kind: ManagedClusterSetBinding
+    path: spec/clusterSet
+
+  - kind: ManagedClusterSetBinding
+    path: metadata/name

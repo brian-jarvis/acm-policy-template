@@ -5,7 +5,8 @@ metadata:
   name: clusterset-all-openshift
 spec:
   clusterSets:
-    - TOBESET
+    - billy
+    - beth
   tolerations:
     - key: "cluster.open-cluster-management.io/unreachable"
       operator: Exists

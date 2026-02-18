@@ -3,9 +3,13 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 ## skip_validation: true
 
+
 transformers:
-  ## correct the ClusterSet name in referenced objects (placements, managedclustersetbinding)
-  - ./kustomize/transformers/set-clusterset-references.yml
+  ## set a default value for the clusterset on ManagedCluster and Placements.
+  - ./kustomize/transformers/set-managedcluster-clusterset.yml
+
+  ## add the argo annotation to all ManagedClusers and ManagedClusterSet so they will not be deleted by argo
+  - ./kustomize/transformers/argo-prevent-delete.yml
 
 configurations:
   ## configure kustomize to correct the name of the PolicySet in the placement binding
@@ -20,10 +24,14 @@ configurations:
   ## configure kustomize to correct the name of the Placement in the PlacementBinding reference
   - ./kustomize/configuration/namereference/placement-namereference.yml
 
+  ## configure kustomize to correct the name of the PolicySet in the placement binding
+  - ./kustomize/configuration/namereference/clusterset-namereference.yml
+
 ## Add the local resources to the set
 resources:
   - ./policy-base/namespace.yml
   - ./policy-base/managedclustersetbinding.yml
+  - ./policy-base/managedclusterset.yml
 
 
 ## ensure all policies have the copyPolicyMetadata set to false, unset the toplevel remediation action.

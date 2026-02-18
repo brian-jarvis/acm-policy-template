@@ -12,7 +12,6 @@ transformers:
 
 ## Add the local resources to the set
 resources:
-  - managedclusterset.yml
   - managedcluster.yml  ###  This adds the hub cluster to this clusterset.
   - ../../policies/common/acm-placements/ocp
 
@@ -23,3 +22,11 @@ components:
 
   ## base must be added last to the list of components
   - ../../base
+
+patches:
+  - target:
+      kind: ManagedClusterSet
+    patch: |
+      - op: add
+        path: /metadata/name
+        value: hub-prod

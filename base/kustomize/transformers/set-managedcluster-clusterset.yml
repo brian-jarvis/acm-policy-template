@@ -1,0 +1,26 @@
+---
+## The intent of this file is to label the local-cluster with the name of the managedcluserset
+apiVersion: builtin
+kind: LabelTransformer
+metadata:
+  name: set-managedcluster-clusterset-label
+labels:
+  cluster.open-cluster-management.io/clusterset: TOBESET
+fieldSpecs:
+  - path: metadata/labels
+    kind: ManagedCluster
+    create: true
+
+---
+apiVersion: builtin
+kind: PatchTransformer
+metadata:
+  name: notImportantHere
+target:
+  apiVersion: cluster.open-cluster-management.io/v1beta1
+  kind: Placement
+patch: |-
+  - op: replace
+    path: /spec/clusterSets
+    value:
+      - TOBESET

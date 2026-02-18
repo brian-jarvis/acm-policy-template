@@ -4,5 +4,5 @@ kind: ManagedCluster
 metadata:
   name: local-cluster
   labels:
-    cluster.open-cluster-management.io/clusterset: default
+    cluster.open-cluster-management.io/clusterset: dev
     acm-hub: active
